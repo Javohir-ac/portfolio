@@ -25,7 +25,7 @@ console.log('- TELEGRAM_CHAT_ID configured:', !!TELEGRAM_CHAT_ID)
 // Middleware to parse JSON bodies
 app.use(express.json())
 
-// CORS configuration for frontend on port 5000
+// CORS configuration for frontend
 const allowedOrigin =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:5000' // React dev server porti
@@ -245,6 +245,17 @@ app.get('/health', (req, res) => {
   })
 })
 
+// Serve React frontend in production
+if (process.env.NODE_ENV === 'production') {
+  // Serve static files from frontend build folder
+  app.use(express.static(path.join(__dirname, '../frontend/build')))
+
+  // For all non-API routes, serve index.html
+  app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'))
+  })
+}
+
 // Start server on configured port
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`)
@@ -253,4 +264,10 @@ app.listen(PORT, () => {
   console.log(
     `⏰ Telegram will be paused for ${TELEGRAM_PAUSE_HOURS} hours after ${TELEGRAM_FAIL_THRESHOLD} failed attempts`
   )
+
+  if (process.env.NODE_ENV === 'production') {
+    console.log(
+      `📁 Serving React build from: ${path.join(__dirname, '../frontend/build')}`
+    )
+  }
 })
