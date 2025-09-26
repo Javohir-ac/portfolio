@@ -4,7 +4,7 @@
   "description": "Java Tech Portfolio - Full Stack Developer Portfolio with Telegram Integration",
   "main": "backend/server.js",
   "scripts": {
-    "build": "cd frontend && npm install && npm run build",
+    "build": "npm install && cd frontend && npm install && npm run build",
     "start": "node backend/server.js",
     "dev": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
     "server": "node backend/server.js"
@@ -24,6 +24,9 @@
     "npm": ">=6.0.0"
   },
   "dependencies": {
-    "concurrently": "^7.6.0"
+    "concurrently": "^7.6.0",
+    "express": "^4.18.2",
+    "node-fetch": "^2.7.0",
+    "dotenv": "^16.0.3"
   }
 }
