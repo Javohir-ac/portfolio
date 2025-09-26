@@ -101,8 +101,8 @@ const Contact: React.FC = () => {
     setSubmitStatus(null)
 
     try {
-      // Send data to our API route - using the send-message endpoint
-      const response = await fetch('/send-message', {
+      // Send data to our API route - using the updated endpoint
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
