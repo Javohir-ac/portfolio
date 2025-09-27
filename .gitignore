@@ -1,7 +1,7 @@
 # Dependencies
 node_modules/
-/frontend/node_modules/
-/backend/node_modules/
+frontend/node_modules/
+backend/node_modules/
 
 # Production builds
 /frontend/build/
@@ -90,7 +90,6 @@ dist
 
 # Gatsby files
 .cache/
-public/
 
 # vuepress build output
 .vuepress/dist
