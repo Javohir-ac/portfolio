@@ -12,10 +12,10 @@ const Hero: React.FC<HeroProps> = ({ onSectionChange }) => {
 
   useEffect(() => {
     const texts = [
-      'I build web apps',
-      'I create UI/UX',
-      'I develop solutions',
-      'I code the future',
+      'Veb ilovalar yarataman',
+      'UI/UX dizayn qilaman',
+      'Yechimlar ishlab chiqaman',
+      'Kelajakni kodlayman',
     ]
 
     const type = () => {
@@ -47,7 +47,11 @@ const Hero: React.FC<HeroProps> = ({ onSectionChange }) => {
       // Fallback for when not using centralized navigation
       const element = document.getElementById(sectionId)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        })
       }
     }
   }

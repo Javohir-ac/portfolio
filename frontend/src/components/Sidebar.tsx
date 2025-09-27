@@ -29,6 +29,14 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const handleNavClick = (sectionId: string) => {
     onSectionChange(sectionId)
+    // Close sidebar on mobile after clicking a link
+    if (window.innerWidth < 1024 && onClose) {
+      onClose()
+    }
+  }
+
+  const handleSocialLinkClick = (e: React.MouseEvent) => {
+    // Close sidebar on mobile when clicking social links
     if (window.innerWidth < 1024 && onClose) {
       onClose()
     }
@@ -180,11 +188,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               className='flex flex-col items-center p-3 rounded-xl hover:bg-gray-800 transition-all duration-300 transform hover:scale-105'
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={e => {
-                if (window.innerWidth < 1024 && onClose) {
-                  onClose()
-                }
-              }}
+              onClick={handleSocialLinkClick}
             >
               <span className='mb-2 w-6 h-6'>{link.icon}</span>
               <span className='text-xs font-medium'>{link.platform}</span>

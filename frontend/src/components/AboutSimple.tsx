@@ -14,7 +14,11 @@ const About: React.FC<AboutProps> = ({ onSectionChange }) => {
       // Fallback for when not using centralized navigation
       const element = document.getElementById('contact')
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        })
       }
     }
   }
@@ -52,15 +56,15 @@ const About: React.FC<AboutProps> = ({ onSectionChange }) => {
                   style={{ color: '#111827' }}
                 >
                   Assalomu alaykum, men Javohir Jabborov - professional full-stack
-                  dasturchi sifatida zamonaviy web ilovalar yaratishga qaratilganman...
+                  dasturchi sifatida zamonaviy web ilovalar yarataman...
                 </p>
 
                 <p
                   className='text-base sm:text-lg leading-relaxed'
                   style={{ color: '#111827' }}
                 >
-                  Men ReactJS, Node.js, Java/Spring Boot, MongoDB/PostgreSQL,
-                  TailwindCSS...
+                  Men ReactJS, Node.js, Java/Spring Boot, MongoDB/PostgreSQL, TailwindCSS
+                  kabi texnologiyalardan foydalanaman
                 </p>
               </div>
 

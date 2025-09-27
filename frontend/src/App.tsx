@@ -77,7 +77,13 @@ const App: React.FC = () => {
     lastActiveSectionRef.current = sectionId
 
     if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
-    element.scrollIntoView({ behavior: 'smooth' })
+
+    // Use smooth scrolling with proper options
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    })
 
     scrollTimeoutRef.current = setTimeout(() => {
       isScrollingRef.current = false
@@ -97,11 +103,11 @@ const App: React.FC = () => {
         setSidebarTarget(sectionId)
 
         setTimeout(() => {
-          if (pendingScrollRef.current) {
-            const targetElement = document.getElementById(pendingScrollRef.current)
-            if (targetElement) performScroll(targetElement, pendingScrollRef.current)
-          }
-        }, 350)
+          // Use the sectionId directly instead of pendingScrollRef.current
+          // because pendingScrollRef.current might be null due to re-render
+          const targetElement = document.getElementById(sectionId)
+          if (targetElement) performScroll(targetElement, sectionId)
+        }, 350) // Wait for sidebar close animation to complete
       } else {
         performScroll(element, sectionId)
       }

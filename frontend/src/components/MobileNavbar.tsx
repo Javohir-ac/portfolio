@@ -1,5 +1,5 @@
 import React from 'react'
-import { WhiteLogo } from './LogoVariants' // Logo importini o'zgartiramiz
+import { WhiteLogo } from './LogoVariants'
 
 interface MobileNavbarProps {
   isSidebarOpen: boolean
@@ -14,7 +14,7 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
     <div className='lg:hidden fixed top-0 left-0 right-0 h-16 bg-gray-900 shadow-lg z-40 flex items-center justify-between px-4'>
       {/* Logo - chap burchakda */}
       <div className='flex items-center'>
-        <WhiteLogo size='sm' /> {/* WhiteLogo dan foydalanamiz */}
+        <WhiteLogo size='sm' />
       </div>
 
       {/* Hamburger menu - o'ng burchakda */}
@@ -22,6 +22,7 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
         onClick={onToggleSidebar}
         className='p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
         aria-label={isSidebarOpen ? 'Yopish' : 'Ochish'}
+        aria-expanded={isSidebarOpen}
       >
         {isSidebarOpen ? (
           // Close icon (X)
@@ -30,6 +31,7 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
             fill='none'
             stroke='currentColor'
             viewBox='0 0 24 24'
+            aria-hidden='true'
           >
             <path
               strokeLinecap='round'
@@ -45,6 +47,7 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
             fill='none'
             stroke='currentColor'
             viewBox='0 0 24 24'
+            aria-hidden='true'
           >
             <path
               strokeLinecap='round'

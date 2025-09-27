@@ -202,6 +202,22 @@ const Contact: React.FC<ContactProps> = ({ onSectionChange }) => {
     },
   }
 
+  const handleNavClick = (sectionId: string) => {
+    if (onSectionChange) {
+      onSectionChange(sectionId)
+    } else {
+      // Fallback for when not using centralized navigation
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        })
+      }
+    }
+  }
+
   return (
     <section
       id='contact'
