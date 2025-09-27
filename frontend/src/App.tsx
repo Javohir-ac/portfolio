@@ -128,7 +128,8 @@ const App: React.FC = () => {
   useEffect(() => {
     return () => {
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
-      if (sidebarAnimationTimeoutRef.current) clearTimeout(sidebarAnimationTimeoutRef.current)
+      if (sidebarAnimationTimeoutRef.current)
+        clearTimeout(sidebarAnimationTimeoutRef.current)
       sidebarClosingRef.current = false
     }
   }, [])

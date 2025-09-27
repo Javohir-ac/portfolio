@@ -17,10 +17,6 @@ interface SocialLink {
 interface SidebarProps {
   activeSection: string
   onSectionChange: (section: string) => void
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange }) => {
-=======
   sidebarTarget?: string | null
   onClose?: () => void
 }
@@ -38,7 +34,6 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   }
 
->>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
   const navItems: NavItem[] = [
     {
       id: 'hero',
@@ -113,13 +108,6 @@ const Sidebar: React.FC<SidebarProps> = ({
       initial={{ x: -300, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-<<<<<<< HEAD
-      className='fixed top-0 left-0 h-full w-64 lg:w-80 bg-gray-900 text-white z-50 flex flex-col overflow-y-auto'
-    >
-      {/* Header */}
-      <div className='p-6 text-center border-b border-gray-700'>
-        <WhiteLogo size='lg' />
-=======
       className='h-full w-full bg-gray-900 text-white flex flex-col overflow-y-auto'
     >
       {/* Mobil versiyada header - logotip o'rniga matnlar, yopish tugmasi yo'q */}
@@ -133,7 +121,6 @@ const Sidebar: React.FC<SidebarProps> = ({
       {/* Desktop uchun header - logotip markazda */}
       <div className='hidden lg:flex flex-col items-center p-6 border-b border-gray-700'>
         <WhiteLogo size='lg' className='mx-auto' />
->>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
         <p className='text-gray-400 text-sm mt-2'>Full-stack Developer</p>
         <p className='text-gray-400 text-sm mt-1'>React • Node.js • TypeScript</p>
       </div>
@@ -144,23 +131,6 @@ const Sidebar: React.FC<SidebarProps> = ({
           Bo'limlar
         </h3>
         <ul className='space-y-3'>
-<<<<<<< HEAD
-          {navItems.map(item => (
-            <li key={item.id}>
-              <button
-                onClick={() => onSectionChange(item.id)}
-                className={`w-full flex items-center px-5 py-4 rounded-xl text-base transition-all duration-300 transform hover:scale-[1.02] ${
-                  activeSection === item.id
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                }`}
-              >
-                <span className='mr-4'>{item.icon}</span>
-                <span className='font-medium'>{item.label}</span>
-              </button>
-            </li>
-          ))}
-=======
           {navItems.map(item => {
             const isActive = activeSection === item.id
             const isTarget = sidebarTarget === item.id
@@ -192,7 +162,6 @@ const Sidebar: React.FC<SidebarProps> = ({
               </motion.li>
             )
           })}
->>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
         </ul>
       </nav>
 
@@ -203,22 +172,12 @@ const Sidebar: React.FC<SidebarProps> = ({
         </h3>
         <div className='grid grid-cols-3 gap-3'>
           {socialLinks.map(link => (
-<<<<<<< HEAD
-            <a
-=======
             <motion.a
->>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
               key={link.platform}
               href={link.url}
               target='_blank'
               rel='noopener noreferrer'
               className='flex flex-col items-center p-3 rounded-xl hover:bg-gray-800 transition-all duration-300 transform hover:scale-105'
-<<<<<<< HEAD
-            >
-              <span className='mb-2 w-6 h-6'>{link.icon}</span>
-              <span className='text-xs font-medium'>{link.platform}</span>
-            </a>
-=======
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={e => {
@@ -230,18 +189,13 @@ const Sidebar: React.FC<SidebarProps> = ({
               <span className='mb-2 w-6 h-6'>{link.icon}</span>
               <span className='text-xs font-medium'>{link.platform}</span>
             </motion.a>
->>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
           ))}
         </div>
       </div>
 
       {/* Footer */}
       <div className='p-4 text-center border-t border-gray-700'>
-<<<<<<< HEAD
-        <p className='text-sm text-gray-500'>© 2024 Java-Tech</p>
-=======
         <p className='text-sm text-gray-500'>© 2024 Portfolio</p>
->>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
       </div>
     </motion.div>
   )
