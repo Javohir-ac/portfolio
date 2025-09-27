@@ -3,6 +3,7 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 const path = require('path')
 const fs = require('fs').promises
+const fetch = require('node-fetch')
 
 // Load environment variables
 dotenv.config()
@@ -147,6 +148,8 @@ app.get('*', (req, res) => {
 })
 
 // Start server
-app.listen(PORT, () => {})
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`)
+})
 
 module.exports = app
