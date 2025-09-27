@@ -1,0 +1,33 @@
+{
+  "name": "java-tech-portfolio",
+  "version": "1.0.0",
+  "description": "Java Tech Portfolio - Full Stack Developer Portfolio with Telegram Integration",
+  "main": "backend/server.js",
+  "scripts": {
+    "build": "npm install && cd frontend && npm install && npm run build",
+    "start": "node backend/server.js",
+    "dev": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
+    "server": "node backend/server.js"
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "express",
+    "telegram-bot"
+  ],
+  "author": "Javohir Jabborov",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "framer-motion": "^12.23.22",
+    "node-fetch": "^2.7.0"
+  }
+}
