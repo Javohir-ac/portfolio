@@ -8,6 +8,13 @@ interface ContactForm {
   message: string
 }
 
+<<<<<<< HEAD
+=======
+interface ContactProps {
+  onSectionChange?: (section: string) => void
+}
+
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
 interface FormErrors {
   name?: string
   email?: string
@@ -20,7 +27,11 @@ interface ContactFormResponse {
   message: string
 }
 
+<<<<<<< HEAD
 const Contact: React.FC = () => {
+=======
+const Contact: React.FC<ContactProps> = ({ onSectionChange }) => {
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
   const [formData, setFormData] = useState<ContactForm>({
     name: '',
     email: '',
@@ -86,7 +97,11 @@ const Contact: React.FC = () => {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
+<<<<<<< HEAD
       console.error('Email nusxalashda xatolik:', err)
+=======
+      // Handle error silently
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
     }
   }
 
@@ -133,7 +148,10 @@ const Contact: React.FC = () => {
         })
       }
     } catch (error) {
+<<<<<<< HEAD
       console.error('Fetch error:', error)
+=======
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
       setSubmitStatus({
         success: false,
         message: 'Xabar yuborishda xatolik yuz berdi ❌',
@@ -200,7 +218,11 @@ const Contact: React.FC = () => {
   return (
     <section
       id='contact'
+<<<<<<< HEAD
       className='min-h-screen py-20 px-6 lg:px-12'
+=======
+      className='min-h-screen py-20 px-4 sm:px-6 lg:px-8'
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
       style={{
         backgroundColor: '#E0F2FF',
       }}
@@ -213,23 +235,40 @@ const Contact: React.FC = () => {
           viewport={{ once: true, amount: 0.2 }}
         >
           {/* Header */}
+<<<<<<< HEAD
           <motion.div variants={itemVariants} className='text-center mb-16'>
             <h2
               className='text-4xl lg:text-5xl font-bold mb-4'
+=======
+          <motion.div variants={itemVariants} className='text-center mb-12 sm:mb-16'>
+            <h2
+              className='text-3xl sm:text-4xl lg:text-5xl font-bold mb-4'
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
               style={{ color: '#1f2937' }}
             >
               Aloqa
             </h2>
             <div
+<<<<<<< HEAD
               className='w-24 h-1 mx-auto mb-6'
               style={{ backgroundColor: '#3b82f6' }}
             ></div>
             <p className='text-xl max-w-2xl mx-auto' style={{ color: '#111827' }}>
+=======
+              className='w-20 h-1 sm:w-24 mx-auto mb-6'
+              style={{ backgroundColor: '#3b82f6' }}
+            ></div>
+            <p
+              className='text-base sm:text-xl max-w-2xl mx-auto px-4'
+              style={{ color: '#111827' }}
+            >
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
               Loyiha haqida gaplashish yoki hamkorlik qilish uchun menga murojaat qiling.
               Har doim yangi imkoniyatlarga ochiqman!
             </p>
           </motion.div>
 
+<<<<<<< HEAD
           <div className='grid lg:grid-cols-2 gap-12'>
             {/* Contact Info */}
             <motion.div variants={itemVariants}>
@@ -237,10 +276,20 @@ const Contact: React.FC = () => {
                 Bog'lanish ma'lumotlari
               </h3>
               <div className='space-y-6'>
+=======
+          <div className='grid lg:grid-cols-2 gap-8 sm:gap-12'>
+            {/* Contact Info */}
+            <motion.div variants={itemVariants}>
+              <h3 className='text-xl sm:text-2xl font-bold text-text-dark mb-6 sm:mb-8 text-center lg:text-left'>
+                Bog'lanish ma'lumotlari
+              </h3>
+              <div className='space-y-4 sm:space-y-6'>
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                 {contactInfo.map((info, index) => (
                   <motion.div
                     key={index}
                     variants={itemVariants}
+<<<<<<< HEAD
                     className='flex items-center p-4 bg-white rounded-lg shadow-md hover-lift'
                   >
                     <div className='w-12 h-12 bg-primary-blue bg-opacity-10 rounded-lg flex items-center justify-center mr-4 text-primary-blue flex-shrink-0'>
@@ -248,6 +297,15 @@ const Contact: React.FC = () => {
                     </div>
                     <div className='flex-1 min-w-0'>
                       <p className='text-sm text-gray-500 font-medium truncate'>
+=======
+                    className='flex items-center p-4 sm:p-5 bg-white rounded-xl sm:rounded-lg shadow-md hover-lift'
+                  >
+                    <div className='w-10 h-10 sm:w-12 sm:h-12 bg-primary-blue bg-opacity-10 rounded-lg flex items-center justify-center mr-3 sm:mr-4 text-primary-blue flex-shrink-0'>
+                      {info.icon}
+                    </div>
+                    <div className='flex-1 min-w-0'>
+                      <p className='text-xs sm:text-sm text-gray-500 font-medium truncate'>
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                         {info.label}
                       </p>
                       <div className='flex items-center justify-between'>
@@ -256,24 +314,40 @@ const Contact: React.FC = () => {
                             href={info.link}
                             target='_blank'
                             rel='noopener noreferrer'
+<<<<<<< HEAD
                             className='text-text-dark hover:text-primary-blue transition-colors font-semibold truncate'
+=======
+                            className='text-text-dark hover:text-primary-blue transition-colors font-semibold text-sm sm:text-base truncate'
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                           >
                             {info.value}
                           </a>
                         ) : (
+<<<<<<< HEAD
                           <p className='text-text-dark font-semibold truncate'>
+=======
+                          <p className='text-text-dark font-semibold text-sm sm:text-base truncate'>
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                             {info.value}
                           </p>
                         )}
                         {info.label === 'Email' && (
                           <button
                             onClick={copyEmail}
+<<<<<<< HEAD
                             className='ml-2 p-2 rounded-md hover:bg-gray-100 transition-colors flex-shrink-0'
+=======
+                            className='ml-2 p-1.5 sm:p-2 rounded-md hover:bg-gray-100 transition-colors flex-shrink-0'
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                             title='Email nusxalash'
                           >
                             {copied ? (
                               <svg
+<<<<<<< HEAD
                                 className='w-4 h-4 text-green-500'
+=======
+                                className='w-4 h-4 sm:w-5 sm:h-5 text-green-500'
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                                 fill='currentColor'
                                 viewBox='0 0 20 20'
                               >
@@ -285,7 +359,11 @@ const Contact: React.FC = () => {
                               </svg>
                             ) : (
                               <svg
+<<<<<<< HEAD
                                 className='w-4 h-4 text-gray-500'
+=======
+                                className='w-4 h-4 sm:w-5 sm:h-5 text-gray-500'
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                                 fill='currentColor'
                                 viewBox='0 0 20 20'
                               >
@@ -302,11 +380,19 @@ const Contact: React.FC = () => {
               </div>
 
               {/* Social Links */}
+<<<<<<< HEAD
               <motion.div variants={itemVariants} className='mt-8'>
                 <h4 className='text-lg font-semibold text-text-dark mb-4 text-center lg:text-left'>
                   Ijtimoiy tarmoqlar
                 </h4>
                 <div className='flex space-x-4 justify-center lg:justify-start'>
+=======
+              <motion.div variants={itemVariants} className='mt-6 sm:mt-8'>
+                <h4 className='text-lg font-semibold text-text-dark mb-4 text-center lg:text-left'>
+                  Ijtimoiy tarmoqlar
+                </h4>
+                <div className='flex space-x-3 sm:space-x-4 justify-center lg:justify-start'>
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                   {[
                     {
                       platform: 'GitHub',
@@ -328,7 +414,11 @@ const Contact: React.FC = () => {
                     },
                     {
                       platform: 'Twitter',
+<<<<<<< HEAD
                       url: 'https://twitter.com/javohir',
+=======
+                      url: 'https://x.com/JovohirJ53605',
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                       icon: (
                         <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'>
                           <path d='M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z' />
@@ -341,7 +431,11 @@ const Contact: React.FC = () => {
                       href={social.url}
                       target='_blank'
                       rel='noopener noreferrer'
+<<<<<<< HEAD
                       className='w-12 h-12 bg-white rounded-lg shadow-md flex items-center justify-center hover:bg-primary-blue hover:text-white transition-all duration-300 hover-lift'
+=======
+                      className='w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-lg shadow-md flex items-center justify-center hover:bg-primary-blue hover:text-white transition-all duration-300 hover-lift'
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                       title={social.platform}
                     >
                       {social.icon}
@@ -353,11 +447,19 @@ const Contact: React.FC = () => {
 
             {/* Contact Form */}
             <motion.div variants={itemVariants}>
+<<<<<<< HEAD
               <h3 className='text-2xl font-bold text-text-dark mb-8 text-center lg:text-left'>
                 Xabar yuborish
               </h3>
               <form onSubmit={handleSubmit} className='space-y-6'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+=======
+              <h3 className='text-xl sm:text-2xl font-bold text-text-dark mb-6 sm:mb-8 text-center lg:text-left'>
+                Xabar yuborish
+              </h3>
+              <form onSubmit={handleSubmit} className='space-y-5 sm:space-y-6'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'>
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                   <motion.div variants={itemVariants}>
                     <label
                       htmlFor='name'
@@ -372,7 +474,11 @@ const Contact: React.FC = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
+<<<<<<< HEAD
                       className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all ${
+=======
+                      className={`form-input ${
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                         formErrors.name ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder='Ismingizni kiriting'
@@ -396,7 +502,11 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
+<<<<<<< HEAD
                       className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all ${
+=======
+                      className={`form-input ${
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                         formErrors.email ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder='email@example.com'
@@ -421,7 +531,11 @@ const Contact: React.FC = () => {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
+<<<<<<< HEAD
                     className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all ${
+=======
+                    className={`form-input ${
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                       formErrors.subject ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder='Xabar mavzusi'
@@ -444,8 +558,13 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
+<<<<<<< HEAD
                     rows={6}
                     className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all resize-none ${
+=======
+                    rows={5}
+                    className={`form-textarea ${
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                       formErrors.message ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder='Xabaringizni bu yerda yozing...'
@@ -466,7 +585,13 @@ const Contact: React.FC = () => {
                         : 'bg-red-100 text-red-800 border border-red-200'
                     }`}
                   >
+<<<<<<< HEAD
                     <span className='flex-1'>{submitStatus.message || ''}</span>
+=======
+                    <span className='flex-1 text-sm sm:text-base'>
+                      {submitStatus.message || ''}
+                    </span>
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                     <button
                       onClick={() => setSubmitStatus(null)}
                       className={`ml-2 p-1 rounded-full ${
@@ -501,11 +626,31 @@ const Contact: React.FC = () => {
                   {isSubmitting ? (
                     <span className='flex items-center justify-center'>
                       <svg
+<<<<<<< HEAD
                         className='w-5 h-5 mr-2'
                         fill='currentColor'
                         viewBox='0 0 24 24'
                       >
                         <path d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z' />
+=======
+                        className='w-5 h-5 mr-2 animate-spin'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                      >
+                        <circle
+                          className='opacity-25'
+                          cx='12'
+                          cy='12'
+                          r='10'
+                          stroke='currentColor'
+                          strokeWidth='4'
+                        ></circle>
+                        <path
+                          className='opacity-75'
+                          fill='currentColor'
+                          d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+                        ></path>
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                       </svg>
                       Yuborilmoqda...
                     </span>
@@ -527,18 +672,31 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Call to Action */}
+<<<<<<< HEAD
           <motion.div variants={itemVariants} className='text-center mt-16'>
             <div className='bg-primary-blue bg-opacity-10 rounded-2xl p-8'>
               <h3 className='text-2xl font-bold text-text-dark mb-4'>
                 Keling, birgalikda ajoyib narsa yaratamiz! 🚀
               </h3>
               <p className='text-gray-600 mb-6'>
+=======
+          <motion.div variants={itemVariants} className='text-center mt-12 sm:mt-16'>
+            <div className='bg-primary-blue bg-opacity-10 rounded-xl sm:rounded-2xl p-6 sm:p-8'>
+              <h3 className='text-xl sm:text-2xl font-bold text-text-dark mb-3 sm:mb-4'>
+                Keling, birgalikda ajoyib narsa yaratamiz! 🚀
+              </h3>
+              <p className='text-gray-600 text-sm sm:text-base mb-5 sm:mb-6 px-4'>
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
                 Sizning g'oyangizni hayotga tatbiq etish uchun tayyor. Loyiha haqida
                 gaplashish uchun bog'laning!
               </p>
               <a
                 href='mailto:jovohirjabborov85@gmail.com'
+<<<<<<< HEAD
                 className='inline-flex items-center px-8 py-3 bg-primary-blue text-white rounded-lg font-medium hover:bg-primary-blue-hover transition-colors'
+=======
+                className='inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-primary-blue text-white rounded-lg font-medium hover:bg-primary-blue-hover transition-colors'
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
               >
                 <svg className='w-5 h-5 mr-2' fill='currentColor' viewBox='0 0 24 24'>
                   <path d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z' />

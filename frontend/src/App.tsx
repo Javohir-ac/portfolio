@@ -1,139 +1,195 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import About from './components/AboutSimple'
 import BackToTop from './components/BackToTop'
 import Contact from './components/Contact'
 import Hero from './components/Hero'
-import { WhiteLogo } from './components/LogoVariants'
+import MobileNavbar from './components/MobileNavbar'
 import Projects from './components/Projects'
 import Sidebar from './components/Sidebar'
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero')
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarTarget, setSidebarTarget] = useState<string | null>(null)
+  const [mobileSidebarVisible, setMobileSidebarVisible] = useState(false)
+  const isScrollingRef = useRef(false)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const isMobileRef = useRef(false)
+  const pendingScrollRef = useRef<string | null>(null)
+  const sidebarAnimationTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const sidebarClosingRef = useRef(false)
+  const lastActiveSectionRef = useRef(activeSection)
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['hero', 'about', 'projects', 'contact']
-      const scrollPosition = window.scrollY + 200
-
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
+    const checkMobile = () => {
+      const wasMobile = isMobileRef.current
+      isMobileRef.current = window.innerWidth < 1024
+      if (wasMobile !== isMobileRef.current) {
+        if (pendingScrollRef.current) pendingScrollRef.current = null
+        if (sidebarAnimationTimeoutRef.current) {
+          clearTimeout(sidebarAnimationTimeoutRef.current)
+          sidebarAnimationTimeoutRef.current = null
         }
+        isScrollingRef.current = false
+        sidebarClosingRef.current = false
+        setSidebarTarget(null)
       }
     }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+  useEffect(() => {
+    const sections = ['hero', 'about', 'projects', 'contact']
+    const observerOptions: IntersectionObserverInit = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0,
     }
-    // Mobile versiyada section bosilganda sidebar yopiladi
-    if (window.innerWidth < 1024) {
-      setSidebarOpen(false)
+
+    const observer = new IntersectionObserver(entries => {
+      if (isScrollingRef.current) return
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id
+          setActiveSection(sectionId)
+          lastActiveSectionRef.current = sectionId
+        }
+      })
+    }, observerOptions)
+
+    sections.forEach(sectionId => {
+      const element = document.getElementById(sectionId)
+      if (element) observer.observe(element)
+    })
+
+    return () => {
+      sections.forEach(sectionId => {
+        const element = document.getElementById(sectionId)
+        if (element) observer.unobserve(element)
+      })
     }
-  }
+  }, [])
+
+  const performScroll = useCallback((element: HTMLElement, sectionId: string) => {
+    isScrollingRef.current = true
+    setActiveSection(sectionId)
+    lastActiveSectionRef.current = sectionId
+
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+    element.scrollIntoView({ behavior: 'smooth' })
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      isScrollingRef.current = false
+      setSidebarTarget(null)
+      pendingScrollRef.current = null
+    }, 1000)
+  }, [])
+
+  const scrollToSection = useCallback(
+    (sectionId: string) => {
+      const element = document.getElementById(sectionId)
+      if (!element) return
+
+      if (isMobileRef.current && mobileSidebarVisible) {
+        setMobileSidebarVisible(false)
+        pendingScrollRef.current = sectionId
+        setSidebarTarget(sectionId)
+
+        setTimeout(() => {
+          if (pendingScrollRef.current) {
+            const targetElement = document.getElementById(pendingScrollRef.current)
+            if (targetElement) performScroll(targetElement, pendingScrollRef.current)
+          }
+        }, 350)
+      } else {
+        performScroll(element, sectionId)
+      }
+    },
+    [mobileSidebarVisible, performScroll]
+  )
+
+  const handleSidebarClose = useCallback(() => {
+    sidebarClosingRef.current = true
+    setMobileSidebarVisible(false)
+    setSidebarTarget(null)
+    pendingScrollRef.current = null
+    isScrollingRef.current = false
+
+    sidebarAnimationTimeoutRef.current = setTimeout(() => {
+      sidebarClosingRef.current = false
+    }, 350)
+  }, [])
+
+  const handleBackToTop = useCallback(() => {
+    scrollToSection('hero')
+  }, [scrollToSection])
+
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+      if (sidebarAnimationTimeoutRef.current) clearTimeout(sidebarAnimationTimeoutRef.current)
+      sidebarClosingRef.current = false
+    }
+  }, [])
 
   return (
     <div className='min-h-screen bg-sky-100'>
-      {/* Desktop Layout */}
-      <div className='hidden lg:flex'>
-        <div className='fixed left-0 top-0 w-80 h-full'>
-          <Sidebar activeSection={activeSection} onSectionChange={scrollToSection} />
-        </div>
-        <main className='flex-1 ml-80'>
-          <Hero />
-          <About />
-          <Projects />
-          <Contact />
-        </main>
+      {/* Desktop Sidebar */}
+      <div className='hidden lg:block fixed left-0 top-0 w-80 h-full z-50'>
+        <Sidebar
+          activeSection={activeSection}
+          onSectionChange={scrollToSection}
+          sidebarTarget={sidebarTarget}
+        />
       </div>
 
-      {/* Mobile Layout */}
-      <div className='lg:hidden'>
-        {/* Mobile Header */}
-        <div className='sticky top-0 z-50 flex items-center justify-between p-4 bg-gray-900 text-white shadow-lg'>
-          <div className='flex items-center'>
-            <WhiteLogo size='md' />
-          </div>
+      {/* Mobile Navbar */}
+      <MobileNavbar
+        isSidebarOpen={mobileSidebarVisible}
+        onToggleSidebar={() => setMobileSidebarVisible(!mobileSidebarVisible)}
+      />
 
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className='p-2 rounded-md text-gray-300 hover:text-white focus:outline-none hover:bg-gray-700 transition-colors'
-            aria-label='Toggle sidebar'
-          >
-            <svg
-              className='w-6 h-6'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M4 6h16M4 12h16M4 18h16'
-              />
-            </svg>
-          </button>
-        </div>
-
-        {/* Mobile Sidebar (Drawer) */}
-        {sidebarOpen && (
-          <div className='fixed inset-0 z-40 flex'>
-            {/* Overlay */}
-            <div
-              className='fixed inset-0 bg-black bg-opacity-70'
-              onClick={() => setSidebarOpen(false)}
-            ></div>
-
-            {/* Drawer */}
-            <div className='relative w-72 bg-gray-900 h-full z-50 shadow-2xl'>
-              <div className='flex justify-end p-4'>
-                <button
-                  onClick={() => setSidebarOpen(false)}
-                  className='text-gray-400 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-colors'
-                  aria-label='Close sidebar'
-                >
-                  <svg
-                    className='w-6 h-6'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M6 18L18 6M6 6l12 12'
-                    />
-                  </svg>
-                </button>
-              </div>
-              <Sidebar activeSection={activeSection} onSectionChange={scrollToSection} />
-            </div>
-          </div>
-        )}
-
-        <main>
-          <Hero />
-          <About />
-          <Projects />
-          <Contact />
-        </main>
+      {/* Mobile Sidebar */}
+      <div
+        className={`lg:hidden fixed left-0 top-16 w-64 h-full z-50 transition-transform duration-300 transform ${
+          mobileSidebarVisible ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <Sidebar
+          activeSection={activeSection}
+          onSectionChange={scrollToSection}
+          sidebarTarget={sidebarTarget}
+          onClose={handleSidebarClose}
+        />
       </div>
 
-      {/* Back to Top Button */}
-      <BackToTop />
+      {/* Mobile Overlay */}
+      {mobileSidebarVisible && (
+        <div
+          className='lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30'
+          onClick={handleSidebarClose}
+        />
+      )}
+
+      {/* Content */}
+      <main className='flex-1 ml-0 lg:ml-80 pt-16 lg:pt-0'>
+        <div id='hero'>
+          <Hero onSectionChange={scrollToSection} />
+        </div>
+        <div id='about'>
+          <About onSectionChange={scrollToSection} />
+        </div>
+        <div id='projects'>
+          <Projects />
+        </div>
+        <div id='contact'>
+          <Contact onSectionChange={scrollToSection} />
+        </div>
+      </main>
+
+      {/* Back to Top */}
+      <BackToTop onScrollToTop={handleBackToTop} />
     </div>
   )
 }

@@ -1,7 +1,15 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 
+<<<<<<< HEAD
 const BackToTop: React.FC = () => {
+=======
+interface BackToTopProps {
+  onScrollToTop?: () => void
+}
+
+const BackToTop: React.FC<BackToTopProps> = ({ onScrollToTop }) => {
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -13,15 +21,30 @@ const BackToTop: React.FC = () => {
       }
     }
 
+<<<<<<< HEAD
     window.addEventListener('scroll', toggleVisibility)
+=======
+    window.addEventListener('scroll', toggleVisibility, { passive: true })
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
     return () => window.removeEventListener('scroll', toggleVisibility)
   }, [])
 
   const scrollToTop = () => {
+<<<<<<< HEAD
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     })
+=======
+    if (onScrollToTop) {
+      onScrollToTop()
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    }
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
   }
 
   return (
@@ -34,9 +57,16 @@ const BackToTop: React.FC = () => {
           transition={{ duration: 0.3 }}
           onClick={scrollToTop}
           className='fixed bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-10 lg:right-10 
+<<<<<<< HEAD
                      z-50 p-3 sm:p-4 lg:p-5 
                      rounded-full shadow-lg transition-all duration-300 
                      hover:shadow-xl transform hover:scale-110 bg-blue-500 text-white'
+=======
+                     z-50 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16
+                     rounded-full shadow-lg transition-all duration-300 
+                     hover:shadow-xl transform hover:scale-110 bg-blue-500 text-white
+                     flex items-center justify-center'
+>>>>>>> 0090d00 (Updated project with responsive navbar and sidebar fix)
           title='Yuqoriga qaytish'
         >
           <svg
